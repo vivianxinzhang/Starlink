@@ -4,6 +4,8 @@ import {Form, Button, InputNumber} from 'antd';
 class SatSettingForm extends Component {
 
     render() {
+        // console.log(this.props);
+
         const {getFieldDecorator} = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -16,6 +18,7 @@ class SatSettingForm extends Component {
             },
         };
         return (
+            /*解构 formItemLayout 传给 Form 使用*/
             <Form {...formItemLayout} className="sat-setting" onSubmit={this.showSatellite}>
                 <Form.Item label="Longitude(degrees)">
                     {
@@ -103,7 +106,7 @@ class SatSettingForm extends Component {
     }
 
     showSatellite = e => {
-        e.preventDefault();
+        e.preventDefault(); // 阻止自动向后端发送请求
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
@@ -113,6 +116,7 @@ class SatSettingForm extends Component {
     }
 }
 
+// a higher-order component is a function that takes a component and returns a new component
 const SatSetting1 = Form.create({name: 'satellite-setting'})(SatSettingForm)
 
 export default SatSetting1;
