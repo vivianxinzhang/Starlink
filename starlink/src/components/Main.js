@@ -25,6 +25,8 @@ class Main extends Component {
         this.fetchSatellite(setting);
     }
 
+    // 70, -40, 90, 90, 10
+    // 70, -70, 90, 90, 10
     fetchSatellite = (setting) => {
         // Step 2: configure
         const { latitude, longitude, elevation, altitude } = setting;

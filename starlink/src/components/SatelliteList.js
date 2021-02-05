@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { List, Avatar, Button, Checkbox, Spin } from 'antd';
 import satelliteIcon from "../assets/images/logo.svg";
+import {select} from "d3-selection";
 
 class SatelliteList extends Component {
     constructor(){
@@ -49,10 +50,15 @@ class SatelliteList extends Component {
         console.log(this.props);
         const satList = this.props.satInfo ? this.props.satInfo.above : [];
         const { isLoad } = this.props;
+        const { selected } = this.state;
         return (
             <div className="sat-list-box">
                 <br/>
-                <Button className="sat-list-btn" type="primary">
+                <Button
+                    className="sat-list-btn"
+                    type="primary"
+                    // disabled={ selected.length === 0 }
+                >
                         Track on the map
                 </Button>
                 <hr/>
