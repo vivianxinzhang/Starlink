@@ -10,9 +10,36 @@ class Main extends Component {
         super();
         this.state = {
             satInfo: null,
-            settings: null,
+            satList: null,
+            setting: null,
             isLoadingList: false
         };
+    }
+
+    render() {
+        const { satInfo, isLoadingList, satList, setting } = this.state;
+        console.log(this.state);
+        return (
+            <div className="main">
+                <div className="left-side">
+                    <SatSetting onShow={this.showNearbySatellite}/>
+                    <SatelliteList satInfo={satInfo}
+                                   isLoad={isLoadingList}
+                                   onShowMap={this.showMap}
+                    />
+                </div>
+                <div className="right-side">
+                    <WorldMap satData={satList} observerData={setting} />
+                </div>
+            </div>
+        );
+    }
+
+    showMap = (selected) => {
+        this.setState(preState => ({
+            ...preState,
+            satList: [...selected]
+        }))
     }
 
     // fetch data from backend server
@@ -20,7 +47,8 @@ class Main extends Component {
         console.log(setting);
         // Step 1: get the setting
         this.setState({
-            settings: setting
+            isLoadingList: true,
+            setting: setting
         })
         this.fetchSatellite(setting);
     }
@@ -39,12 +67,12 @@ class Main extends Component {
         });
         axios.get(url)
             .then(response => {
-                console.log(response);
+                console.log('response -> ', response);
+                console.log('response.data ->', response.data);
                 console.log(this.state);
                 // when fetching data succeed, hide spin and update satInfo
                 this.setState({
                     satInfo: response.data,
-                    // satInfo: 1,
                     isLoadingList: false
                 });
                 console.log(this.state);
@@ -56,24 +84,6 @@ class Main extends Component {
                     isLoadingList: false
                 });
             })
-    }
-
-    render() {
-        // console.log(this.state);
-        const { satInfo, isLoadingList } = this.state;
-        return (
-            <div className="main">
-                <div className="left-side">
-                    <SatSetting onShow={this.showNearbySatellite}/>
-                    <SatelliteList satInfo={satInfo}
-                                   isLoad={isLoadingList}
-                    />
-                </div>
-                <div className="right-side">
-                    <WorldMap/>
-                </div>
-            </div>
-        );
     }
 }
 
