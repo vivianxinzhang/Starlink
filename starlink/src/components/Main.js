@@ -18,7 +18,7 @@ class Main extends Component {
 
     render() {
         const { satInfo, isLoadingList, satList, setting } = this.state;
-        console.log(this.state);
+        // console.log(satList);
         return (
             <div className="main">
                 <div className="left-side">
@@ -36,15 +36,16 @@ class Main extends Component {
     }
 
     showMap = (selected) => {
+        // console.log('Satellites selected', selected);
         this.setState(preState => ({
             ...preState,
-            satList: [...selected]
+            satList: [...selected]  // copy 返回一个新对象
         }))
     }
 
     // fetch data from backend server
     showNearbySatellite = (setting) => {
-        console.log(setting);
+        // console.log(setting);
         // Step 1: get the setting
         this.setState({
             isLoadingList: true,
@@ -67,9 +68,9 @@ class Main extends Component {
         });
         axios.get(url)
             .then(response => {
-                console.log('response -> ', response);
-                console.log('response.data ->', response.data);
-                console.log(this.state);
+                // console.log('response -> ', response);
+                // console.log('response.data ->', response.data);
+                // console.log(this.state);
                 // when fetching data succeed, hide spin and update satInfo
                 this.setState({
                     satInfo: response.data,

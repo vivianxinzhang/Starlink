@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { List, Avatar, Button, Checkbox, Spin } from 'antd';
 import satelliteIcon from "../assets/images/logo.svg";
-import {select} from "d3-selection";
+// import {select} from "d3-selection";
 
 class SatelliteList extends Component {
     constructor(){
@@ -13,7 +13,7 @@ class SatelliteList extends Component {
     }
 
     onChange = e => {
-        console.log('clicked -> ', e.target);
+        // console.log('clicked -> ', e.target);
         const { dataInfo, checked } = e.target;
         // processing the satellite
         const { selected } = this.state;
@@ -42,15 +42,21 @@ class SatelliteList extends Component {
                 return entry.satid !== sat.satid;
             });
         }
-        console.log(list);
+        // console.log(list);
         return list;
     }
 
+    onShowSatOnMap = () => {
+        // pass selected satellite list to Main component
+        // console.log(this.props);
+        this.props.onShowMap(this.state.selected);
+    }
+
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         const satList = this.props.satInfo ? this.props.satInfo.above : [];
         const { isLoad } = this.props;
-        const { selected } = this.state;
+        // const { selected } = this.state;
         return (
             <div className="sat-list-box">
                 <br/>
@@ -58,6 +64,7 @@ class SatelliteList extends Component {
                     className="sat-list-btn"
                     type="primary"
                     // disabled={ selected.length === 0 }
+                    onClick={this.onShowSatOnMap}
                 >
                         Track on the map
                 </Button>
